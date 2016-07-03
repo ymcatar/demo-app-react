@@ -1,45 +1,57 @@
-let webpack = require('webpack');
-let path = require('path');
+/* global process, __dirname */
 
-let HtmlWebpackPlugin = require('html-webpack-plugin');
+var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const PATHS = {
-  BUILD: path.resolve(__dirname, 'dist'),
-  JS: path.resolve(__dirname, 'src'),
-  INDEX: path.resolve(__dirname, 'src/index.ejs')
-};
+var webpack = require('webpack');
+var _ = require('lodash');
 
-const config = {
-  entry: PATHS.JS + '/app.jsx',
+var isProduction = process.env.NODE_ENV === 'production';
+
+var basePlugins = [
+  new HtmlWebpackPlugin({
+    template: './src/index.ejs'
+  }),
+  new webpack.optimize.OccurrenceOrderPlugin(),
+  new webpack.optimize.DedupePlugin()
+];
+
+module.exports = [{
+  cache: true,
+  entry: './src/app.jsx',
   output: {
-    path: PATHS.BUILD,
+    path: path.join(__dirname, './dist'),
     filename: 'bundle.js'
   },
-  module: {
-    preloaders: [
-      {
-        test: /\.jsx?$/,
-        include: PATHS.JS,
-        loader: 'eslint'
-      }
-    ],
-    loaders: [
-      {
-        test: /\.jsx?$/,
-        include: PATHS.JS,
-        loader: 'babel-loader',
-        query: {
-          presets: ['es2015', 'react']
-        }
-      }
-    ]
+  resolve: {
+    extendsions: ['', '.js', '.jsx']
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: 'Hello React',
-      template: PATHS.INDEX
-    })
-  ]
-};
-
-module.exports = config;
+  module: {
+    loaders: [{
+      test: /\.jsx?$/,
+      loader: 'babel-loader',
+      exclude: /node_modules/,
+      query: {
+        presets: ['es2015', 'react']
+      }
+    }]
+  },
+  devtool: 'source-map',
+  plugins: isProduction
+    ? _.concat(basePlugins, [
+      new webpack.optimize.UglifyJsPlugin({
+        minimize: true,
+        sourceMap: false,
+        mangle: false,
+        removeRedundantAttributes: false,
+        output: { comments: false },
+        compress: { warnings: false }
+      }),
+      new webpack.DefinePlugin({
+        'process.env': {
+          'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        }
+      })
+    ])
+    : basePlugins
+}];
