@@ -18,7 +18,7 @@ var basePlugins = [
 
 module.exports = [{
   cache: true,
-  entry: './src/app.jsx',
+  entry: './src/index.jsx',
   output: {
     path: path.join(__dirname, './dist'),
     filename: 'bundle.js'
