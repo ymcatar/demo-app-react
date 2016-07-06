@@ -21,7 +21,7 @@ export default class Filter extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
-    alert(this.state.filter);
+    this.props.handleFilter(this.state.filter);
   }
 
   render() {
