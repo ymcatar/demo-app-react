@@ -1,5 +1,5 @@
 {
-  "name": "react-boilerplate",
+  "name": "demo-app-react",
   "version": "1.0.0",
   "description": "a webpack boilerplate for react",
   "main": "webpack.config.js",
@@ -24,12 +24,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ymcatar/react-boilerplate.git"
+    "url": "git+https://github.com/ymcatar/demo-app-react.git"
   },
   "author": "ymcatar",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/ymcatar/react-boilerplate/issues"
+    "url": "https://github.com/ymcatar/demo-app-react/issues"
   },
-  "homepage": "https://github.com/ymcatar/react-boilerplate#readme"
+  "homepage": "https://github.com/ymcatar/demo-app-react#readme"
 }
