@@ -18,7 +18,7 @@ export default class List extends React.Component {
         {
           this.state.data
             .filter(({ speaker }) => _.startsWith(_.lowerCase(speaker), _.lowerCase(this.props.filter)))
-            .map(item => <Talk {...item} />)
+            .map((item, i) => <Talk key={i} {...item} />)
         }
       </div>
     );
