@@ -26,7 +26,7 @@ export default class Main extends React.Component {
     return (
       <div className="container" style={styles.main}>
         <Filter handleFilter={this.handleFilter}/>
-        <List />
+        <List filter={this.state.filter} />
       </div>
     );
   }
