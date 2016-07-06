@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 
 import Filter from './Filter';
+import List from './List';
 
 const styles = {
   main: {
@@ -25,6 +26,7 @@ export default class Main extends React.Component {
     return (
       <div className="container" style={styles.main}>
         <Filter handleFilter={this.handleFilter}/>
+        <List />
       </div>
     );
   }
